@@ -1,58 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "../ui/Button";
 import RemoveFavoriteModal from "./remove-favorite-modal";
+
 
 interface User {
   id: number;
   name: string;
   username: string;
   role: string;
-  avatar: string;
+  avatar_url: string;
+  login: string;
+  type: string;
 }
-
-const favoriteUsers: User[] = [
-  {
-    id: 1,
-    name: "Maria Eduarda",
-    username: "meduarda",
-    role: "Frontend developer",
-    avatar: "./versel.svg"
-  },
-  {
-    id: 2,
-    name: "Carlos Serpa",
-    username: "carlosserpa",
-    role: "Frontend developer",
-    avatar: "./versel.svg"
-  },
-  {
-    id: 3,
-    name: "Ana Marla",
-    username: "anamarla",
-    role: "Frontend developer",
-    avatar: "./versel.svg"
-  },
-  {
-    id: 4,
-    name: "João Sampaio Silva",
-    username: "jsampaio",
-    role: "Frontend developer",
-    avatar: "./versel.svg"
-  },
-  {
-    id: 5,
-    name: "Maria Valentina",
-    username: "mvalentina",
-    role: "Frontend developer",
-    avatar: "./versel.svg"
-  },
-];
 
 export default function UserList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  const [favoriteUsers, setFavoriteUsers] = useState<User[]>([]);
+console.log(favoriteUsers);
+
+useEffect(() => {
+    const savedFavorites = localStorage.getItem("github-users-favorites");
+    if (savedFavorites) setFavoriteUsers(JSON.parse(savedFavorites));
+  }, []);
 
   const handleOpenModal = (user: User) => {
     setSelectedUser(user);
@@ -86,24 +59,24 @@ export default function UserList() {
             >
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-4">
+                  
                   <Image
-                    src={user.avatar}
-                    alt={`Avatar de ${user.name}`}
+                    src={user.avatar_url}
+                    alt={`Avatar de ${user.login}`}
                     width={40}
                     height={40}
                     className="w-10 h-10 rounded-full object-cover"
                   />
                   <div>
                     <h3 className="text-white font-medium">
-                      {user.name} <span className="text-gray-400 font-normal">{user.username}</span>
+                      {user.name} <span className="text-gray-400 font-normal">{user.login}</span>
                     </h3>
-                    <p className="text-gray-400 text-sm">{user.role}</p>
+                    <p className="text-gray-400 text-sm">{user.type}</p>
                   </div>
                 </div>
                 <Button
                   variant="secondary"
                   onClick={() => handleOpenModal(user)}
-                  className="flex items-center space-x-1 text-gray-400 hover:text-white transition-colors text-sm"
                 >
                   <Image
                     src="./star.svg"
@@ -119,7 +92,6 @@ export default function UserList() {
           ))}
         </div>
       </div>
-
       <RemoveFavoriteModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

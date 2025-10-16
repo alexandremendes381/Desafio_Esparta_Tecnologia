@@ -17,7 +17,7 @@ const Button: FC<ButtonProps> = ({ variant = "primary", className, children, hre
 
     const variants = {
         primary: "transparent text-white",
-        secondary: "bg-[#21262D] text-white hover:bg-gray-300",
+        secondary: "bg-[#21262D] text-white hover:bg-gray-300 flex items-center space-x-1 text-gray-400 hover:text-white transition-colors text-sm",
         danger: "flex-1 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors font-medium",
         outline:"flex-1 px-6 py-3 rounded-lg border border-[#30363D] bg-transparent text-white hover:bg-[#30363D] transition-colors font-medium",
         link: clsx(
@@ -30,7 +30,6 @@ const Button: FC<ButtonProps> = ({ variant = "primary", className, children, hre
         if (href) {
             router.push(href);
         }
-        // Chama o onClick passado como prop, se existir
         if (onClick) {
             onClick(event);
         }
