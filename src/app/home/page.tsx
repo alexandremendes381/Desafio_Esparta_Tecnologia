@@ -1,6 +1,7 @@
 "use client";
 import Button from "@/components/ui/Button";
 import SearchInput from "@/components/ui/Input";
+import UserCardSkeleton from "@/components/ui/UserCardSkeleton";
 import { useGitHubUser } from "@/hooks/useGitHubUser";
 import { useFavorites } from "@/hooks/useFavorites";
 import Image from "next/image";
@@ -37,9 +38,7 @@ export default function Home() {
         </div>
 
         {loading && (
-          <div className="flex justify-center">
-            <div className="text-gray-400">Buscando usuário...</div>
-          </div>
+          <UserCardSkeleton />
         )}
 
         {error && (

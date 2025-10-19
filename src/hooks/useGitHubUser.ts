@@ -1,7 +1,8 @@
 "use client";
-import { useState } from 'react';
-import { fetchGet } from '@/services/api';
-import { toast } from 'react-toastify';
+
+import { useState } from "react";
+import { fetchGet } from "@/services/api";
+import { toast } from "react-toastify";
 
 interface GitHubUser {
   id: number;
@@ -33,7 +34,7 @@ export function useGitHubUser(): UseGitHubUserReturn {
 
   const searchUser = async (username: string) => {
     if (!username.trim()) {
-      const errorMessage = 'Nome de usuário não pode estar vazio';
+      const errorMessage = "Nome de usuário não pode estar vazio";
       setError(errorMessage);
       toast.error(errorMessage);
       return;
@@ -47,17 +48,19 @@ export function useGitHubUser(): UseGitHubUserReturn {
       const apiUrl = `https://api.github.com/users/${username.trim()}`;
       const userData = await fetchGet(apiUrl);
       setUser(userData);
-      toast.success(`Usuário ${userData.name || userData.login} encontrado com sucesso!`);
+      toast.success(
+        `Usuário ${userData.name || userData.login} encontrado com sucesso!`
+      );
     } catch (err) {
-      let errorMessage = '';
+      let errorMessage = "";
       if (err instanceof Error) {
-        if (err.message.includes('404')) {
-          errorMessage = 'Usuário não encontrado';
+        if (err.message.includes("404")) {
+          errorMessage = "Usuário não encontrado";
         } else {
-          errorMessage = 'Erro ao buscar usuário: ' + err.message;
+          errorMessage = "Erro ao buscar usuário: " + err.message;
         }
       } else {
-        errorMessage = 'Erro desconhecido ao buscar usuário';
+        errorMessage = "Erro desconhecido ao buscar usuário";
       }
       setError(errorMessage);
       toast.error(errorMessage);
@@ -76,6 +79,6 @@ export function useGitHubUser(): UseGitHubUserReturn {
     loading,
     error,
     searchUser,
-    clearUser
+    clearUser,
   };
 }
