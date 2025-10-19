@@ -1,24 +1,27 @@
 "use client";
 import React from "react";
 import Button from "../ui/Button";
+import Skeleton from "../ui/Skeleton";
 
 interface RemoveFavoriteModalProps {
     isOpen: boolean;
     onClose: () => void;
     onConfirm: () => void;
     userName?: string;
+    loading?: boolean;
 }
 
 export default function RemoveFavoriteModal({
     isOpen,
     onClose,
     onConfirm,
-    userName = "usuário"
+    userName = "usuário",
+    loading = false
 }: RemoveFavoriteModalProps) {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
             <div className="relative bg-[#21262D] border border-[#21262D] rounded-lg shadow-lg max-w-md w-full mx-4">
                 <button
                     onClick={onClose}
@@ -48,6 +51,7 @@ export default function RemoveFavoriteModal({
                             <Button
                                 variant="outline"
                                 onClick={onClose}
+                                disabled={loading}
                             >
                                 Voltar
                             </Button>
@@ -55,8 +59,21 @@ export default function RemoveFavoriteModal({
                             <Button
                                 variant="danger"
                                 onClick={onConfirm}
+                                disabled={loading}
                             >
-                                Confirmar ação
+                                {loading ? (
+                                    <div className="flex items-center gap-2">
+                                        <Skeleton 
+                                          variant="circular" 
+                                          width={16} 
+                                          height={16} 
+                                          className="bg-white/20"
+                                        />
+                                        <span>Removendo...</span>
+                                    </div>
+                                ) : (
+                                    "Confirmar ação"
+                                )}
                             </Button>
                         </div>
                     </div>

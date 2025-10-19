@@ -33,8 +33,7 @@ const loadFavoritesFromStorage = (): GitHubUser[] => {
     if (storedFavorites) {
       return JSON.parse(storedFavorites);
     }
-  } catch (error) {
-    console.error('Erro ao carregar favoritos do localStorage:', error);
+  } catch {
     toast.error('Erro ao carregar favoritos salvos');
     localStorage.removeItem(FAVORITES_STORAGE_KEY);
   }
@@ -44,8 +43,7 @@ const loadFavoritesFromStorage = (): GitHubUser[] => {
 const saveFavoritesToStorage = (favorites: GitHubUser[]) => {
   try {
     localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
-  } catch (error) {
-    console.error('Erro ao salvar favoritos no localStorage:', error);
+  } catch {
     toast.error('Erro ao salvar favorito');
   }
 };
