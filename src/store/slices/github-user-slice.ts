@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { BASE_URL } from "../api-config";
 
 interface GitHubUser {
   id: number;
@@ -41,14 +40,12 @@ export const fetchGitHubUser = createAsyncThunk(
 
     try {
       const response = await fetch(
-        `${BASE_URL}/users/${username.trim()}`
+        `/api/github/users/${username.trim()}`
       );
 
       if (!response.ok) {
-        if (response.status === 404) {
-          return rejectWithValue("Usuário não encontrado");
-        }
-        return rejectWithValue(`Erro ao buscar usuário: ${response.status}`);
+        const errorData = await response.json();
+        return rejectWithValue(errorData.error || `Erro ao buscar usuário: ${response.status}`);
       }
 
       const data: GitHubUser = await response.json();
