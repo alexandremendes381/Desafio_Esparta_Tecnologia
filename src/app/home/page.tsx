@@ -5,7 +5,7 @@ import UserCardSkeleton from "@/components/ui/UserCardSkeleton";
 import { useGitHubUser } from "@/hooks/useGitHubUser";
 import { useFavorites } from "@/hooks/useFavorites";
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function Home() {
   const [value, setValue] = useState("");
@@ -65,10 +65,10 @@ export default function Home() {
                     className="w-10 h-10 rounded-full object-cover"
                   />
                   <div>
-                    <h3 className="text-white font-medium">
-                      {user.name || user.login} <span className="text-gray-400 font-normal">@{user.login}</span>
+                    <h3 className="text-[#58A6FF] font-medium">
+                      {user.name || user.login} <span className="text-gray-400 font-normal">{user.login}</span>
                     </h3>
-                    <p className="text-gray-400 text-sm">Frontend developer</p>
+                    <p className="text-gray-400 text-sm">{user.type}</p>
                   </div>
                 </div>
                   <Button

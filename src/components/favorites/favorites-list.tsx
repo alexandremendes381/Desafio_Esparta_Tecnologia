@@ -4,19 +4,9 @@ import Image from "next/image";
 import Button from "../ui/Button";
 import FavoritesListSkeleton from "../ui/FavoritesListSkeleton";
 import RemoveFavoriteModal from "./remove-favorite-modal";
+import type { User } from "@/types";
 
-
-interface User {
-  id: number;
-  name: string;
-  username: string;
-  role: string;
-  avatar_url: string;
-  login: string;
-  type: string;
-}
-
-export default function UserList() {
+export default function FavoritesList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -125,7 +115,7 @@ export default function UserList() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmRemove}
-        userName={selectedUser?.name}
+        userName={selectedUser?.name || selectedUser?.login}
         loading={removingFavorite}
       />
     </div>

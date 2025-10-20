@@ -1,24 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface GitHubUser {
-  id: number;
-  login: string;
-  avatar_url: string;
-  name: string | null;
-  bio: string | null;
-  location: string | null;
-  company: string | null;
-  blog: string | null;
-  public_repos: number;
-  followers: number;
-  following: number;
-  html_url: string;
-}
-
-interface FavoritesState {
-  favorites: GitHubUser[];
-  loading: boolean;
-}
+import type { GitHubUser, FavoritesState } from "@/types";
 
 const FAVORITES_STORAGE_KEY = "github-users-favorites";
 

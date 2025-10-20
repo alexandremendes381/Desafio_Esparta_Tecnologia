@@ -1,22 +1,16 @@
 "use client";
-import React from "react";
+import { FC } from "react";
 import Button from "../ui/Button";
 import { toastSuccess } from "@/lib/utils";
+import type { RemoveFavoriteModalProps } from "@/types";
 
-interface RemoveFavoriteModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onConfirm: () => Promise<void> | void;
-    userName?: string;
-    loading?: boolean;
-}
-
-export default function RemoveFavoriteModal({
+const RemoveFavoriteModal: FC<RemoveFavoriteModalProps> = ({
     isOpen,
     onClose,
     onConfirm,
+    userName,
     loading = false
-}: RemoveFavoriteModalProps) {
+}) => {
     if (!isOpen) return null;
 
     const handleConfirm = async () => {
@@ -47,7 +41,7 @@ export default function RemoveFavoriteModal({
                         </h2>
 
                         <p className="text-gray-300 text-center font-normal text-base leading-6 tracking-normal">
-                            Tem certeza que deseja remover este usuário dos seus favoritos?
+                            Tem certeza que deseja remover {userName ? `"${userName}"` : "este usuário"} dos seus favoritos?
                         </p>
 
                         <div className="flex flex-col w-full mt-auto gap-4">
@@ -91,7 +85,7 @@ export default function RemoveFavoriteModal({
                             </h2>
 
                             <p className="text-gray-300 text-center font-normal text-base leading-6 tracking-normal">
-                                Tem certeza que deseja remover este usuário dos seus favoritos?
+                                Tem certeza que deseja remover {userName ? `"${userName}"` : "este usuário"} dos seus favoritos?
                             </p>
                         </div>
 
@@ -119,4 +113,6 @@ export default function RemoveFavoriteModal({
             </div>
         </div>
     );
-}
+};
+
+export default RemoveFavoriteModal;

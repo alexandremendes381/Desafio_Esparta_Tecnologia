@@ -7,7 +7,7 @@ import Button from "./Button";
 export default function Topbar() {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
-    
+
     return (
         <>
             <div className="w-full flex items-center justify-center gap-4 bg-[#161B22]">
@@ -18,7 +18,7 @@ export default function Topbar() {
                     <div className="hidden sm:flex items-center gap-4">
                         <Button
                             variant="link"
-                            href="/"
+                            href="/home"
                             onClick={() => router.push('/')}
                         >Home</Button>
                         <Button
@@ -49,20 +49,24 @@ export default function Topbar() {
 
                         <Button
                             variant="link"
+                            href="/home"
                             onClick={() => {
                                 router.push("/");
                                 setIsOpen(false);
                             }}
+                            className="text-left justify-start w-full"
                         >
                             Home
                         </Button>
 
                         <Button
                             variant="link"
+                            href="/favorites"
                             onClick={() => {
                                 router.push("/favorites");
                                 setIsOpen(false);
                             }}
+                            className="text-left justify-start w-full"
                         >
                             Favoritos
                         </Button>

@@ -1,14 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
+import type { SkeletonProps } from "@/types";
 
-interface SkeletonProps {
-  className?: string;
-  variant?: 'text' | 'circular' | 'rectangular' | 'rounded';
-  width?: string | number;
-  height?: string | number;
-  lines?: number;
-}
-
-const Skeleton: React.FC<SkeletonProps> = ({ 
+const Skeleton: FC<SkeletonProps> = ({ 
   className = '', 
   variant = 'rectangular',
   width,

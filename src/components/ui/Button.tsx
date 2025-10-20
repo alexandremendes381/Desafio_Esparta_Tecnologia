@@ -1,12 +1,8 @@
 "use client";
-import { ButtonHTMLAttributes, FC } from "react";
+import { FC } from "react";
 import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: "primary" | "secondary" | "link" | "danger" | "outline";
-    href?: string; 
-}
+import type { ButtonProps } from "@/types";
 
 const Button: FC<ButtonProps> = ({ variant = "primary", className, children, href, onClick, ...props }) => {
     const router = useRouter();
@@ -22,7 +18,7 @@ const Button: FC<ButtonProps> = ({ variant = "primary", className, children, hre
         outline:"flex-1 px-6 py-3 rounded-lg border border-[#30363D] bg-transparent text-white hover:bg-[#30363D] transition-colors font-medium",
         link: clsx(
             "text-white bg-transparent hover:text-blue-600",
-            isActive ? "underline underline-offset-5 decoration-2" : "no-underline"
+            isActive ? "underline underline-offset-5 decoration-2 decoration-blue-500" : "no-underline"
         ),
     };
 
