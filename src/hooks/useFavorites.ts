@@ -3,29 +3,7 @@ import { useEffect } from "react";
 import { toastSuccess } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addFavorite, removeFavorite, loadFavorites } from "@/store/slices/favorites-slice";
-
-interface GitHubUser {
-  id: number;
-  login: string;
-  avatar_url: string;
-  name: string | null;
-  bio: string | null;
-  location: string | null;
-  company: string | null;
-  blog: string | null;
-  public_repos: number;
-  followers: number;
-  following: number;
-  html_url: string;
-}
-
-interface UseFavoritesReturn {
-  favorites: GitHubUser[];
-  addFavorite: (user: GitHubUser) => void;
-  removeFavorite: (userId: number) => void;
-  isFavorite: (userId: number) => boolean;
-  toggleFavorite: (user: GitHubUser) => void;
-}
+import type { GitHubUser, UseFavoritesReturn } from "@/types";
 
 export function useFavorites(): UseFavoritesReturn {
   const dispatch = useAppDispatch();

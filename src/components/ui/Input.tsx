@@ -1,15 +1,9 @@
 "use client";
 
-import React, { FC, InputHTMLAttributes } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import Button from "./Button";
-
-interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  placeholder?: string;
-  value: string;
-  handleSearch: () => void;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import type { SearchInputProps } from "@/types";
 
 const SearchInput: FC<SearchInputProps> = ({ placeholder, value, handleSearch, handleInputChange, ...props }) => {
   return (

@@ -18,6 +18,7 @@ export async function GET(
       headers: {
         Accept: 'application/vnd.github.v3+json',
       },
+      next: { revalidate: 100}
     });
 
     if (!response.ok) {
@@ -31,7 +32,13 @@ export async function GET(
     }
 
     const userData = await response.json();
-    return NextResponse.json(userData);
+    
+    return NextResponse.json(userData, {
+      headers: {
+        'Cache-Control': 'public, max-age=100', 
+        'ETag': `"${username}-${Date.now()}"`,
+      },
+    });
   } catch (error) {
     console.error('Erro na API Route:', error);
     return NextResponse.json(

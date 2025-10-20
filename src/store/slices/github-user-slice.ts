@@ -1,27 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-interface GitHubUser {
-  id: number;
-  login: string;
-  avatar_url: string;
-  name: string | null;
-  bio: string | null;
-  location: string | null;
-  company: string | null;
-  blog: string | null;
-  public_repos: number;
-  followers: number;
-  following: number;
-  html_url: string;
-}
-
-interface GitHubUserState {
-  user: GitHubUser | null;
-  loading: boolean;
-  error: string | null;
-  lastFetched: number | null;
-}
+import type { GitHubUser, GitHubUserState } from "@/types";
 
 const initialState: GitHubUserState = {
   user: null,
@@ -33,9 +12,26 @@ const initialState: GitHubUserState = {
 
 export const fetchGitHubUser = createAsyncThunk(
   "githubUser/fetchUser",
-  async (username: string, { rejectWithValue }) => {
+  async (username: string, { rejectWithValue, getState }) => {
     if (!username.trim()) {
       return rejectWithValue("Nome de usuário não pode estar vazio");
+    }
+
+    // Verificar cache antes de fazer a requisição
+    const state = getState() as { githubUser: GitHubUserState };
+    const { user, lastFetched } = state.githubUser;
+    
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutos em milissegundos
+    const now = Date.now();
+    
+    // Se o usuário é o mesmo e o cache ainda é válido, retornar dados cached
+    if (
+      user && 
+      user.login.toLowerCase() === username.trim().toLowerCase() && 
+      lastFetched && 
+      (now - lastFetched) < CACHE_DURATION
+    ) {
+      return user;
     }
 
     try {
@@ -71,6 +67,9 @@ const githubUserSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    updateLastFetched: (state) => {
+      state.lastFetched = Date.now();
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -92,5 +91,5 @@ const githubUserSlice = createSlice({
   },
 });
 
-export const { clearUser, clearError } = githubUserSlice.actions;
+export const { clearUser, clearError, updateLastFetched } = githubUserSlice.actions;
 export default githubUserSlice.reducer;

@@ -1,11 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import Skeleton from './Skeleton';
+import type { FavoritesListSkeletonProps } from "@/types";
 
-interface FavoritesListSkeletonProps {
-  count?: number;
-}
-
-const FavoritesListSkeleton: React.FC<FavoritesListSkeletonProps> = ({ count = 3 }) => {
+const FavoritesListSkeleton: FC<FavoritesListSkeletonProps> = ({ count = 3 }) => {
   return (
     <div className="space-y-2">
       {Array.from({ length: count }).map((_, index) => (
