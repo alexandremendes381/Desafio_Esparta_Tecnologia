@@ -2,6 +2,7 @@ import Topbar from '@/components/ui/Topbar';
 import './globals.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Providers } from '@/lib/providers';
 
 export const metadata = {
   title: 'Meu Site',
@@ -12,6 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" suppressHydrationWarning>      
       <body className="dark">
+        <Providers>
         <Topbar/>
         {children}
         <ToastContainer
@@ -26,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           pauseOnHover
           theme="dark"
         />
+        </Providers>
       </body>
     </html>
   )
