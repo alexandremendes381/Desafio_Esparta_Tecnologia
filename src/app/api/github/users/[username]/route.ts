@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
   try {
-    const { username } = params;
+    const { username } = await params;
 
     if (!username || typeof username !== 'string') {
       return NextResponse.json(
@@ -14,14 +14,11 @@ export async function GET(
       );
     }
 
-    const response = await fetch(
-      `https://api.github.com/users/${username}`,
-      {
-        headers: {
-          'Accept': 'application/vnd.github.v3+json',
-        },
-      }
-    );
+    const response = await fetch(`https://api.github.com/users/${username}`, {
+      headers: {
+        Accept: 'application/vnd.github.v3+json',
+      },
+    });
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -34,12 +31,9 @@ export async function GET(
     }
 
     const userData = await response.json();
-    
     return NextResponse.json(userData);
-    
   } catch (error) {
     console.error('Erro na API Route:', error);
-    
     return NextResponse.json(
       { error: 'Erro interno do servidor' },
       { status: 500 }

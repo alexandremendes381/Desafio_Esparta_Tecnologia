@@ -5,8 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Providers } from '@/lib/providers';
 
 export const metadata = {
-  title: 'Meu Site',
-  description: 'Descrição do site',
+  title: 'GitHub Hub - Perfis Favoritos',
+  description: 'Encontre e gerencie seus perfis favoritos do GitHub.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
