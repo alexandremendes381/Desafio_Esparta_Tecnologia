@@ -1,6 +1,6 @@
 "use client";
 
-import { toast } from "react-toastify";
+import { toastSuccess, toastError } from "@/lib/utils";
 import { useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { clearUser, fetchGitHubUser } from "@/store/slices/github-user-slice";
@@ -14,11 +14,11 @@ export function useGitHubUser() {
     async (username: string) => {
       try {
         const result = await dispatch(fetchGitHubUser(username)).unwrap();
-        toast.success(
+        toastSuccess(
           `Usuário ${result.name || result.login} encontrado com sucesso!`
         );
       } catch (err) {
-        toast.error(err as string);
+        toastError(err as string);
       }
     },
     [dispatch]

@@ -11,33 +11,36 @@ const FavoritesListSkeleton: React.FC<FavoritesListSkeletonProps> = ({ count = 3
       {Array.from({ length: count }).map((_, index) => (
         <div
           key={index}
-          className="flex flex-col items-start gap-2 p-4 rounded-lg border border-[#21262D] bg-[#161B22]"
-          style={{ width: '976.656px' }}
+          className="w-full flex flex-col items-start gap-2 p-3 sm:p-4 rounded-lg border border-[#21262D] bg-[#161B22]"
         >
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-between w-full flex-wrap gap-3 sm:flex-nowrap">
+            <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
               <Skeleton 
                 variant="circular" 
-                width={40} 
-                height={40} 
+                width={32} 
+                height={32} 
+                className="sm:w-10 sm:h-10"
               />
-              <div className="space-y-2">
+              <div className="space-y-2 flex-1 min-w-0">
                 <Skeleton 
                   variant="text" 
-                  width={200} 
-                  height={16}
+                  width="60%" 
+                  height={14}
+                  className="sm:h-4"
                 />
                 <Skeleton 
                   variant="text" 
-                  width={80} 
-                  height={14}
+                  width="40%" 
+                  height={12}
+                  className="sm:h-3"
                 />
               </div>
             </div>
             <Skeleton 
               variant="rounded" 
-              width={150} 
-              height={36}
+              width={80} 
+              height={32}
+              className="sm:w-36 sm:h-9 flex-shrink-0"
             />
           </div>
         </div>
